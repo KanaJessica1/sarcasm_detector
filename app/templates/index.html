@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sarcasm Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Sarcasm Detector</h1>
+        
+        <form method="POST">
+            <textarea name="text" placeholder="Enter text to analyze..." required></textarea>
+            
+            <div class="model-choice">
+                <label>
+                    <input type="radio" name="model" value="logistic" checked>
+                    Logistic Regression
+                </label>
+                <label>
+                    <input type="radio" name="model" value="lstm">
+                    LSTM Neural Net
+                </label>
+            </div>
+            
+            <button type="submit">Analyze</button>
+        </form>
+        
+        {% if prediction is not none %}
+        <div class="result {{ 'sarcastic' if prediction == 1 else 'not-sarcastic' }}">
+
+            <h2>Result ({{ model_used }}):</h2>
+            <p>{{ "SARCASM DETECTED! 😏" if prediction == 1 else "No sarcasm detected 🙂" }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
